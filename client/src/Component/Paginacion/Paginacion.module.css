@@ -1,0 +1,41 @@
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2ff00;
+    padding: 10px;
+    
+}
+
+.boton {
+    background-color: #3498db;
+    color: #fff;
+    font-size: 20px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin: 5px;
+    transition: background-color 0.3s; /* Transición suave para el cambio de color de fondo */
+}
+
+.boton:hover {
+    background-color: #1d5b85; /* Color de fondo cuando el cursor está sobre el botón */
+}
+
+.boton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.input {
+    width: 40px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.texto {
+    font-size: 16px;
+}

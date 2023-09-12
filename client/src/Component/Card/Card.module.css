@@ -9,9 +9,10 @@
   align-items: center; /* Alinear elementos en el centro horizontalmente */
   text-align: center; 
   justify-content: center;
+  transition: background-color 0.7s; 
 }
 .card:hover{
-    background-color: black;
+    background-color: rgb(89, 89, 89);
 }
 .img {
     max-width: 80%; /* Establece el ancho máximo de la imagen */
