@@ -39,7 +39,10 @@ const Pokemons = () => {
             </NavLink>
           );
         })}
+        <div className={style.pag}>
+
       <Paginacion pagina={pagina} setPagina={setPagina} maxPag={maxPag} />
+        </div>
     </div>
         </div>
   );

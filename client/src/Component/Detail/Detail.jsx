@@ -1,8 +1,9 @@
 import { getPokemonDetail } from "../../redux/actions";
-import {useParams} from "react-router-dom"
+import {NavLink, useParams} from "react-router-dom"
 import {useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import CardDetail from "../Card/CardDetail";
+import style from "./Detail.module.css"
 
 //useSelectorpara traer info del estado global al componente
 const Detail = ()=>{
@@ -14,8 +15,12 @@ const Detail = ()=>{
     const info = useSelector((state)=>state.detail)
     return (
         <div>
+            <NavLink className={style.back} to="/home">
+                <button className={style.back}>Home</button>
+                </NavLink>
        {info.map(({id,name,img,hp, attack, defense, speed, height, weight, types})=>{
         return(
+            
             <CardDetail
             key={id}
             id= {id}

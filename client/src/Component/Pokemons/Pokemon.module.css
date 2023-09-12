@@ -19,6 +19,10 @@
     -2px -2px 5px #3700ff, 2px 0px 5px #3700ff, 0px 2px 0 #3700ff,
     -2px 0px 5px #3700ff, 0px -2px 5px #3700ff,
     40px 40px 20px rgba(206, 89, 55, 0), 40px 40px 20px rgba(20, 11, 255, 0);
+    display: flex;
+    align-items: center; /* Centra verticalmente la paginación */
+    justify-content: center; /* Centra horizontalmente la paginación */
+    margin-top: 20px; /* Agrega espacio superior si es necesario */
 }
 
 
