@@ -10,7 +10,7 @@ import {
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-
+import style from "./Home.module.css"
 const Home = () => {
   const [orden, setOrden] = useState("");
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const Home = () => {
     dispatch(filterCreate(event.target.value))
   }
   return (
-    <div>
+    <div className={style.back}>
       <select onChange={(event) => handleSort(event)}>
         <option> ORDER BY NAME</option>
         <option value="asc">Ascending Order</option>

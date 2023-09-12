@@ -1,0 +1,24 @@
+.parent {
+  /* background-color: rgb(255, 119, 0); */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  /* grid-column-gap: 0,5px; */
+  /* grid-row-gap: 2px */
+}
+.back {
+  background: linear-gradient(
+    to bottom,
+    #f6e6b4 0%,
+    #ed9017 99%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+.title {
+  color: yellow;
+  text-shadow: 2px 2px 0 #3700ff, 2px -2px 5px #3700ff, -2px 2px 5px #3700ff,
+    -2px -2px 5px #3700ff, 2px 0px 5px #3700ff, 0px 2px 0 #3700ff,
+    -2px 0px 5px #3700ff, 0px -2px 5px #3700ff,
+    40px 40px 20px rgba(206, 89, 55, 0), 40px 40px 20px rgba(20, 11, 255, 0);
+}
+
+

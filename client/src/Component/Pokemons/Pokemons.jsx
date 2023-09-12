@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import Card from "../Card/Card";
 import Paginacion from "../Paginacion/Paginacion";
 // import "./pokemon.css"
+import style from "./Pokemon.module.css"
 const Pokemons = () => {
   const dispatch = useDispatch();
   const pokemones = useSelector((state) => state.pokemons);
@@ -19,8 +20,10 @@ const Pokemons = () => {
   // console.log(maxPag);
 
   return (
-    <div className="parent">
-      <h1>pokemons</h1>
+     <div >
+       <h1 className={style.title}>pokemons</h1>
+
+    <div className={style.parent}>
       {pokemones
         .slice((pagina - 1) * porPagina, (pagina - 1) * porPagina + porPagina)
         .map((pokemon) => {
@@ -32,12 +35,13 @@ const Pokemons = () => {
                 img={pokemon?.img}
                 name={pokemon?.name}
                 types={pokemon?.types}
-              />
+                />
             </NavLink>
           );
         })}
       <Paginacion pagina={pagina} setPagina={setPagina} maxPag={maxPag} />
     </div>
+        </div>
   );
 };
 

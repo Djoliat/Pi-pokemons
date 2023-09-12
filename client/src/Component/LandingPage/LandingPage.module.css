@@ -1,0 +1,30 @@
+.contenedor {
+    text-align: center; /* Centra el contenido horizontalmente */
+}
+
+.listaDeImagenes {
+    display: flex; /* Activa el modelo de caja flexible */
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    gap: 10px; /* Espacio entre las imágenes */
+}
+
+.listaDeImagenes img {
+    max-width: 50%; /* Asegura que las imágenes no superen su tamaño original */
+    height: 50%; /* Mantiene la proporción de aspecto de las imágenes */
+}
+
+
+.listaDeImagenesFuego {
+    display: flex; /* Activa el modelo de caja flexible */
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    gap: 10px; /* Espacio entre las imágenes */
+}
+
+.listaDeImagenesFuego img {
+    max-width: 20%; /* Asegura que las imágenes no superen su tamaño original */
+    height: 20%; /* Mantiene la proporción de aspecto de las imágenes */
+}
+
+.back{
+    background-image: src("C:\Users\didie\Desktop\PI-Pokemon-main\client\src\img\fondo pokemon.jpeg");
+}

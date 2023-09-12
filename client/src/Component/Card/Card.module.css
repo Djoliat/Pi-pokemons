@@ -1,0 +1,20 @@
+.card{
+    border: 2px solid black; /* Agrega un borde negro de 2 píxeles */
+  padding: 10px; /* Agrega espacio interno para que el contenido no toque el borde */
+  margin: 10px;
+  width: 200px; /* Ancho fijo */
+  height: 300px; /* Altura fija */
+  display: flex; /* Usar flexbox para organizar elementos */
+  flex-direction: column; /* Organizar elementos en columna */
+  align-items: center; /* Alinear elementos en el centro horizontalmente */
+  text-align: center; 
+  justify-content: center;
+}
+.card:hover{
+    background-color: black;
+}
+.img {
+    max-width: 80%; /* Establece el ancho máximo de la imagen */
+    max-height: 80%; 
+  }
+
