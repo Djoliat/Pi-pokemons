@@ -1,3 +1,5 @@
+
+
 import {
   CREATE_POKEMON,
   GET_POKEMONS,
@@ -15,7 +17,7 @@ const initialState = {
   pokemons: [],
   allPokemons: [],
   types: [],
-  detail: [],
+  detail: [{}],
   // pokemonName:[],
 };
 
@@ -97,10 +99,6 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case FILTER_CREATE: {
-      return { ...state };
-    }
-
     case FILTER_TYPE: {
       const pokemonByType = state.allPokemons;
       const estadoFiltrado =
@@ -116,14 +114,15 @@ const reducer = (state = initialState, action) => {
       };
     }
     case FILTER_CREATE: {
-      const createdFilter = [...state.allPokemons];
+      const createdFilter = [...state.pokemons];
+      // console.log(action.payload)
       if (action.payload === "all") {
         return {
           ...state,
           pokemons: state.allPokemons,
         };
       }
-      if (action.payload === "created") {
+      if (action.payload === "api") {
         return {
           ...state,
           pokemons: createdFilter.filter(

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getPokemonByName } from "../../redux/actions";
+import { getPokemonByName, getPokemons } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import style from "./searchBar.module.css";
 import { NavLink } from "react-router-dom";
@@ -14,6 +14,9 @@ const SearchBar = () => {
     event.preventDefault()
     setName(event.target.value);
   };
+  const handlePokemon= (event)=>{
+    dispatch(getPokemons(event.target.value))
+  }
 
   const handleSubmit = (event) => {
     if (name !== "") {
@@ -25,7 +28,7 @@ const SearchBar = () => {
   return (
     <div className={style.searchConteiner}>
       <NavLink to="/create">
-        <button>Create a pokemon</button>
+        <button className={style.createButton}>Create a pokemon</button>
       </NavLink>
       <input
         type="search"
@@ -33,7 +36,8 @@ const SearchBar = () => {
         onChange={(event) => handelChange(event)}
         placeholder="Search a pokemon..."
       />
-      <button onClick={(event) => handleSubmit(event)}>Search</button>
+      <button className={style.createButton} onClick={(event) => handleSubmit(event)}>Search</button>
+      <button className={style.createButton} onClick={(event)=>handlePokemon(event)}> All Pokemons </button>
     </div>
   );
 };

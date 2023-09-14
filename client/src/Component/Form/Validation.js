@@ -1,37 +1,35 @@
-const Validation = (forms)=>{
-    let error = {}
-    let weight = parseInt(forms.weight)
-    let height = parseInt(forms.height)
-    let speed = parseInt(forms.speed)
-    let defense = parseInt(forms.defense)
-    let attack = parseInt(forms.attack)
-    let hp = parseInt(forms.hp)
+const Validation = (input) => {
+  let error = {};
 
-    if(!forms.name){
-        error.name = "Must send name"
-    }else if(forms.weight && /^\d+$/.test(weight) !== true){
-        error.weight = "Must be number >= 0"
-    } else if(forms.hp && /^\d+$/.test(hp) !== true){
-        error.hp = "Must be number >= 0"
-    }else if(forms.height && /^\d+$/.test(height) !== true){
-        error.height = "Must be number >= 0"
-    }
-    else if(forms.speed && /^\d+$/.test(speed) !== true){
-        error.speed = "Must be number >= 0"
-    }
-    else if(forms.defense && /^\d+$/.test(defense) !== true){
-        error.defense = "Must be number >= 0"
-    }
-    else if(forms.attack && /^\d+$/.test(attack) !== true){
-        error.attack = "Must be number >= 0"
-    }
-    else if(!forms.types.length){
-        error.types = "Must choose at least one type"
-    } else if(forms.types.length > 2){
-        error.types = "Only two types allowed"
-    }
-
-    return error
+  if (!input.name) {
+    error.name = 'Name is necessary';
 }
 
-export default Validation
+if (input.hp > 255 || !input.hp) {
+    error.hp = 'Life is necessary and less than 255';
+}
+
+if (input.attack > 255 || !input.attack ) {
+    error.attack = 'Attack is necessary and less than 255';
+}
+
+if (input.defense > 255 || !input.defense) {
+    error.defense = 'Defense is necessary and less than 255';
+}
+
+if (input.speed > 255 || !input.speed) {
+    error.speed = 'Speed is necessary and less than 255';
+}
+
+if (!input.height) {
+    error.height = 'Height is necessary';
+};
+
+if (!input.weight || input.weight < 0) {
+    error.weight = 'Weight is necessary or must be postive';
+}
+
+  return error;
+};
+
+export default Validation;

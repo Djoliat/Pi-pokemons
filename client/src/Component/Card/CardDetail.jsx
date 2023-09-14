@@ -12,6 +12,7 @@ const CardDetail = ({
   weight,
   types,
 }) => {
+
   return (
 
       <div className={style.page}>

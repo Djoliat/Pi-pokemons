@@ -7,7 +7,7 @@ return (
         <img className={style.img} src={img} alt={name} />
         <h2>{name}</h2>
         <h3>{types?.map((type)=>(
-            <span>
+            <span key={type}>
                 {`${type} ` }
             </span>
         ))}</h3>

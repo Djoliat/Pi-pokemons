@@ -3,16 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPokemon, getTypes } from "../../redux/actions";
 import Validation from "./Validation";
 import { NavLink } from "react-router-dom";
+import style from "./Form.module.css"
 
 const form = () => {
-  const dispatch = useDispatch();
-  const type = useSelector((state) => state.types);
-  const [error, setError] = useState({});
-
-  useEffect(() => {
-    dispatch(getTypes());
-  }, [dispatch]);
-
   const [input, setInput] = useState({
     name: "",
     img: "",
@@ -25,7 +18,16 @@ const form = () => {
     types: [],
   });
 
-  function handleChange(event) {
+  const dispatch = useDispatch();
+  const tipos = useSelector((state) => state.types);
+  const [error, setError] = useState({});
+  let [disEna, setDisEna] = useState(false);
+
+  useEffect(() => {
+    dispatch(getTypes());
+  }, [dispatch]);
+
+  const handleChange = (event) => {
     setInput({
       ...input,
       [event.target.name]: event.target.value,
@@ -36,7 +38,7 @@ const form = () => {
         [event.target.name]: event.target.value,
       })
     );
-  }
+  };
   // const handleSelect = (event) => {
   //   setInput({
   //     ...input,
@@ -44,151 +46,190 @@ const form = () => {
   //   });
   // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(input);
-    dispatch(createPokemon(input));
-    setInput({
-      name: "",
-      img: "",
-      hp: "",
-      attack: "",
-      defense: "",
-      speed: "",
-      height: "",
-      weight: "",
-      types: [],
-    });
-    alert("Pokemon created");
-  };
-
+  
   const handleTypes = (event) => {
-    if (!input.types.includes(event.target.value)) {
-      setInput({ ...input, types: [input.types, event.target.value] });
+    const selectedType = event.target.value;
+    if (!input.types.includes(selectedType)) {
+      setInput((prevState) => ({
+        ...prevState,
+        types: [...prevState.types, selectedType],
+      }));
+      
     } else {
-      alert("The type is alrready exist ");
+      
+      alert("The type is already selected");
+    }
+    // console.log(input.types)// Agrega esta línea para verificar los tipos seleccionados
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    console.log("hola", input);
+    if(input.types.length=== 0){
+      alert("Please select at least one type.");
+      return;
+    }
+    try {
+      const response = await dispatch(createPokemon(input));
+      if (response && response.data) {
+        // Actualiza el estado local con el Pokémon creado por el servidor, incluyendo los tipos
+        const createdPokemon = response.data;
+      setInput({
+        name: "",
+        img: "",
+        hp: "",
+        attack: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
+        types: createdPokemon.types,
+      });
+    }
+    alert("Pokemon created");
+    
+    } catch (error) {
+      return ({error:error.message})
     }
   };
-
-  const handleDelete = (event) => {
-    const tipoID = input.types.filter(((type) => type !== event))
-    setInput({...input, types: tipoID });
-
-  }
-
+  
+  const handleDelete = (deletedType) => {
+    const updatedTypes = input.types.filter((type) => type !== deletedType);
+    setInput((prevState) => ({
+      ...prevState,
+      types: updatedTypes,
+    }));
+  };
   return (
-    <div>
-      <NavLink to="/home">
-        <button>Home</button>
+    <div className={style.container}>
+      <NavLink to="/home" className={style.link}>
+        <button className={style.button}>Home</button>
       </NavLink>
       <form onSubmit={(event) => handleSubmit(event)}>
-        <div>
-          <label>Name: </label>
+        <div className={style.inputContainer}>
+          <label className={style.label} >Name: </label>
           <input
             type="text"
             value={input.name}
-            name="name"
-            onChange={handleChange}
+            name={"name"}
+            onChange={(event) => handleChange(event)}
+            className={style.input}
           />
+           {error.name && <p style={{color: 'red'}}>{error.name} </p>}
         </div>
         <div>
-          <label>Image:</label>
+          <label className={style.label}>Image:</label>
           <input
             alt="not found"
             value={input.img}
-            name="img"
-            pattern="https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
+            name={"img"}
+            pattern="https?://.*"
             title="FORMATO URL"
             placeholder="URL de imagen"
             onChange={handleChange}
+            className={style.inputContainer}
           />
+          
         </div>
         <div>
-          <label>Weight </label>
+          <label className={style.label}>Weight: </label>
           <input
             type="number"
             value={input.weight}
             name="weight"
             onChange={handleChange}
+            className={style.inputContainer}
           />
+          {error.weight && <p style={{color: 'red'}}>{error.weight} </p>}
         </div>
         <div>
-          <label>HP </label>
+          <label className={style.label}>HP: </label>
           <input
             type="number"
             value={input.hp}
             name="hp"
             onChange={handleChange}
+            className={style.inputContainer}
           />
+          {error.hp && <p style={{color: 'red'}}>{error.hp}</p>}
         </div>
         <div>
-          <label>Speed </label>
+          <label className={style.label}>Speed: </label>
           <input
             type="number"
             value={input.speed}
             name="speed"
             onChange={handleChange}
+            className={style.inputContainer}
           />
+          {error.speed && <p style={{color: 'red'}}>{error.speed}</p>}
         </div>
         <div>
-          <label>Attack </label>
+          <label className={style.label}>Attack: </label>
           <input
             type="number"
             value={input.attack}
             name="attack"
             onChange={handleChange}
+            className={style.inputContainer}
           />
+          {error.attack && <p style={{color: 'red'}}>{error.attack}</p>}
         </div>
         <div>
-          <label>Defense </label>
+          <label className={style.label}>Defense: </label>
           <input
             type="number"
             value={input.defense}
             name="defense"
             onChange={handleChange}
+            className={style.inputContainer}
           />
+          {error.defense && <p style={{color: 'red'}}>{error.defense}</p>}
         </div>
         <div>
-          <label>height:</label>
+          <label className={style.label}>height:</label>
           <input
             type="number"
             value={input.height}
             name="height"
             onChange={handleChange}
+            className={style.inputContainer}
+            
           />
+          {error.height && <p style={{color: 'red'}}>{error.height}</p>}
         </div>
-        <div>
-          <label>type:</label>
-          <select onChange={(select) => handleTypes(select)}>
-            {type?.map((tipo) => {
-              return (
-                <option name={tipo.name} value={tipo.name}>
-                  {tipo.types}
-                </option>
-              );
-            })}
+        <div className={style.inputContainer}>
+          <label className={style.label}>type:</label>
+
+          <select onChange={(select) => handleTypes(select)}
+           className={style.select}>
+             {tipos?.map((element) => (
+          <option key={element.name} value={element.name}>{element.name}</option>
+        ))}
           </select>
 
-          {input.types?.map((typ) => {
-            return(
-              <div key={typ}>
-                <p>{typ}</p>
-              {
-                <button onClick={()=>{
-                  handleDelete(event)
-                }}>
-                x
-                </button>
-              }
-              
-              </div>
-              
-
-            )
-          })}
+         {input.types?.map((element)=>(
+          <div className={style.deleteButton} key={element}>
+          <p className={style.typeContainer} >{element}</p>
+          {
+            <button className={style.submitButton}
+            onClick={()=>{handleDelete(element)}}>
+              x
+            </button>
+          }
+          </div>
+         ))}
+          <p className={style.error}>{input.types.length >= 3 ? error.types : ""}</p>
+          <p className={style.info}>
+            {input.types.length === 1 ? "Puedes agregar 1 mas si quieres!" : ""}
+          </p>
         </div>
-        <div></div>
-        <button type="submit">Create pokemon</button>
+        <div>
+
+        <button className={style.submitButton} type="submit">Create pokemon</button>
+        {!disEna ? <p className={style.errorMessage} >Check all fields</p> : <p></p>}
+        </div>
+
       </form>
     </div>
   );

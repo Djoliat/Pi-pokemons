@@ -28,7 +28,8 @@ const Pokemons = () => {
         .slice((pagina - 1) * porPagina, (pagina - 1) * porPagina + porPagina)
         .map((pokemon) => {
           return (
-            <NavLink to={`/detail/${pokemon.id}`}>
+            
+            <NavLink to={`/detail/${pokemon.id}`} key={pokemon.id}>
               
               <Card 
                 key={pokemon?.id}
@@ -41,9 +42,9 @@ const Pokemons = () => {
         })}
         <div className={style.pag}>
 
-      <Paginacion pagina={pagina} setPagina={setPagina} maxPag={maxPag} />
         </div>
     </div>
+      <Paginacion pagina={pagina} setPagina={setPagina} maxPag={maxPag} />
         </div>
   );
 };

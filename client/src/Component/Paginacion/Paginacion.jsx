@@ -5,6 +5,11 @@ const Paginacion = ({ pagina, setPagina, maxPag }) => {
   const [input, setInput] = useState(1);
   console.log(maxPag);
 
+  const handleInputChange = (event)=>{
+    const inputValue = event.target.value
+    setInput(inputValue)
+  }
+
   const nextPage = () => {
     setInput(input + 1);
     setPagina(pagina + 1);
@@ -26,7 +31,8 @@ const Paginacion = ({ pagina, setPagina, maxPag }) => {
       className={style.input}
       name="page" 
       autoComplete="off" 
-      value={input} />
+      value={input}
+      onChange={(event)=>handleInputChange(event)} />
       <p className={style.texto} >of {maxPag}</p>
       <button
       className={style.boton}

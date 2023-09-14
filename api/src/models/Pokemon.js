@@ -60,6 +60,11 @@ module.exports = (sequelize) => {
         min: 1
       },
     },
+    createdInBd:{
+      type:DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:true
+    }
   }, {
     timestamps: false
   });

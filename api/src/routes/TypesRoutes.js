@@ -7,9 +7,14 @@ const {API_POKEMON_TYPE} = require("../utils/url")
 
 router.get("/", async (req, res)=>{
     // console.log("hola");
-   const resultType = await getTypeApi()
-   res.json(resultType)
-  
+    try {
+        const resultType = await getTypeApi()
+        res.json(resultType)
+       
+        
+    } catch (error) {
+  res.status(404).json({error:error.message})      
+    }
 })
 
 

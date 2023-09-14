@@ -3,14 +3,11 @@ const { getAllPokemons } = require("../Controllers/pokemonsControllers");
 const { Pokemon, Type } = require("../db");
 
 router.get("/", async (req, res) => {
-  try {
   const { name } = req.query;
-  if (name){
-    const pokeName = await getAllPokemons(name)
-    return res.status(200).json(pokeName)
-
-  }
-  const allPokemons = await getAllPokemons();
+  const pokeName = await getAllPokemons(name)
+  
+  const allPokemons = await getAllPokemons(name);
+  try {
     if (!allPokemons) {
       return res.status(400).send("not pokemons found");
     } else return res.status(200).json(allPokemons);
@@ -24,7 +21,7 @@ router.get("/:id", async (req, res) => {
   const pokemons = await getAllPokemons();
   try {
     if (id) {
-      const pokemonById = pokemons.filter((pokemon) => pokemon.id === +id);
+      const pokemonById = pokemons.filter((pokemon) => pokemon.id == id);
       return res.status(200).json(pokemonById);
     } else return res.status(400).send(`${id} not found`);
   } catch (error) {
@@ -35,9 +32,11 @@ router.post("/create", async (req, res) => {
   const { name, hp, attack, defense, speed, img, height, weight, types } =
     req.body;
 
-  if (!name || !hp || !attack || !defense || !speed || !height || !weight )
+  if (!name )
     res.status(400).json({ msg: "Faltan datos" }); 
   try {
+    
+    
     const obj = {
       name,
       img,
@@ -47,37 +46,38 @@ router.post("/create", async (req, res) => {
       speed,
       height,
       weight,
-      types,
+      
     };
     const nvoPokemon = await Pokemon.create(obj);
-
     
+    const TypeName = types.map((type)=>type.name)
     const tipos = await Type.findAll({
       where: {
-        name: types,
+        name: TypeName,
       },
     });
     ;
-nvoPokemon.addType(tipos);
+    // console.log(TypeName);
+   await nvoPokemon.addType(tipos);
+    
+    
+    // console.log(img)
+    
 
-
-  // console.log(img)
-  
-  nvoPokemon
-  ? res.status(200).send("Pokemon creado con exito")
-  : res.status(400).send("No se pudo crear el pokemon");
-  return nvoPokemon;
+    res.status(200).send("Pokemon creado con exito")
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({error:error.message})
   }
-});
-
-router.delete("/:id", async (req, res) => {
- try {
-   const { id } = req.params;
-   const pokemonFind= await Pokemon.findByPk(+id)
-   if (pokemonFind) {
-     const deletePokemon = pokemonFind.destroy();
+  });
+  
+  
+  
+  router.delete("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const pokemonFind= await Pokemon.findByPk(+id)
+      if (pokemonFind) {
+        const deletePokemon = pokemonFind.destroy();
      return res.status(200).json(`pokemon deleted ${deletePokemon}`)
    } else return res.status(400).send(`pokemon id:${id} not found`)
   

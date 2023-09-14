@@ -18,7 +18,8 @@ const Home = () => {
   useEffect(() => {
       dispatch(getPokemons());
       dispatch(getTypes());
-    }, []);
+      // dispatch(filterCreate())
+    }, [dispatch]);
     
     const types = useSelector((state) => state.types);
 
@@ -41,6 +42,8 @@ const Home = () => {
   };
 
   const handleCreated = (event)=>{
+    event.preventDefault()
+    console.log("value", event.target.value);
     dispatch(filterCreate(event.target.value))
   }
   return (
@@ -56,16 +59,19 @@ const Home = () => {
         <option value="wickest">Wickest</option>
       </select>
       <select onChange={(event) => {handleType(event)}}>
-        <option value="By Type">By Type</option>
+        <option value="all">All Types</option>
         {types?.map((element) => (
-          <option value={element.name}>{element.name}</option>
+          <option key={element.name} value={element.name}>{element.name}</option>
         ))}
       </select>
-      <select onChange={((event)=>handleCreated(event))}>
-        <option value={"all"}>All Pokemons</option>
-        <option value={"api"}>Real Pokemons</option>
-        <option value={"created"}>Created</option>
+      <select onChange={(event)=>handleCreated(event)}>
+        <option value="all">All Pokemons</option>
+        <option value="api">Real Pokemons</option>
+        <option value="created">Created</option>
       </select>
+      <div>
+        
+      </div>
       <SearchBar />
       <Pokemons />
     </div>
