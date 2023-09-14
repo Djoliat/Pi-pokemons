@@ -31,11 +31,11 @@ router.get("/:id", async (req, res) => {
 router.post("/create", async (req, res) => {
   const { name, hp, attack, defense, speed, img, height, weight, types } =
     req.body;
-
-  if (!name )
+    if (!name )
     res.status(400).json({ msg: "Faltan datos" }); 
   try {
     
+    console.log("tipos", types);
     
     const obj = {
       name,
@@ -46,17 +46,19 @@ router.post("/create", async (req, res) => {
       speed,
       height,
       weight,
-      
+      types
     };
     const nvoPokemon = await Pokemon.create(obj);
+    // console.log("nuevo pok", nvoPokemon);
     
-    const TypeName = types.map((type)=>type.name)
+    const TypeName = types.map((type)=>type)
+    // console.log(TypeName);
     const tipos = await Type.findAll({
       where: {
         name: TypeName,
       },
     });
-    ;
+    console.log("tipos", tipos);
     // console.log(TypeName);
    await nvoPokemon.addType(tipos);
     

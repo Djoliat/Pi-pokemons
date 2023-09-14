@@ -65,12 +65,14 @@ const form = () => {
     event.preventDefault();
     
     console.log("hola", input);
+    console.log("Tipos seleccionados:", input.types);
     if(input.types.length=== 0){
       alert("Please select at least one type.");
       return;
     }
     try {
       const response = await dispatch(createPokemon(input));
+      console.log(response);
       if (response && response.data) {
         // Actualiza el estado local con el Pokémon creado por el servidor, incluyendo los tipos
         const createdPokemon = response.data;
@@ -227,7 +229,7 @@ const form = () => {
         <div>
 
         <button className={style.submitButton} type="submit">Create pokemon</button>
-        {!disEna ? <p className={style.errorMessage} >Check all fields</p> : <p></p>}
+       
         </div>
 
       </form>
